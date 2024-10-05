@@ -6,6 +6,8 @@ import { RootStackParamList } from '../App';
 import { useNavigation } from '@react-navigation/native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'Watch'>;
 
@@ -19,6 +21,8 @@ const Watch = () => {
     const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
     return (
+      <SafeAreaView>
+        <ScrollView>
         <View style={styles.container}>
           
           <Image source={{ uri: `${IMAGE_BASE_URL}${selectedMovie.poster_path}` }} style={styles.img} resizeMode='cover'/>
@@ -31,13 +35,16 @@ const Watch = () => {
           
           <Text style={styles.original_title}>{selectedMovie.original_title}</Text>
           <Text style={styles.title}>{selectedMovie.overview}</Text>
-          <View>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+          <View style={styles.btnBack}>
+            <TouchableOpacity onPress={() => navigation.goBack()} >
               <Text style={styles.titleBack}>Back</Text>
             </TouchableOpacity>
           </View>
           
         </View>
+        </ScrollView>
+      </SafeAreaView>
+        
       );
 }
 
@@ -70,10 +77,14 @@ const styles = StyleSheet.create({
       paddingRight: 30,
       marginVertical: 10,
     },
+    btnBack:{
+      position: 'absolute',
+      top: 20,
+      left: 20
+    },
     titleBack:{
       color: 'yellow',
       fontSize: 20,
-      paddingTop: 50,
     },
     linear: {
       width: width,

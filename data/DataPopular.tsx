@@ -16,6 +16,8 @@ import Animated, {
     useSharedValue,
 } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView } from "react-native-gesture-handler";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'Popular'>;
 
@@ -55,8 +57,14 @@ function Parallax({ itemList, itemListTopRated}: Props) {
 
 
   return (
-    <View style={styles.container}>
-      <Image source={require('../assets/images/icon.png')} style={styles.icon} />
+    <SafeAreaView>
+      <ScrollView>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={()=> {
+          refreshScreen()
+          navigation.navigate('Popular')}}>
+        <Image source={require('../assets/images/icon.png')} style={styles.icon} />
+        </TouchableOpacity>
       <View style={styles.buttonHeader}>
         <TouchableOpacity onPress={()=> {
           refreshScreen()
@@ -174,6 +182,9 @@ function Parallax({ itemList, itemListTopRated}: Props) {
         />
       </View>
     </View>
+      </ScrollView>
+    </SafeAreaView>
+    
   );
 }
 
