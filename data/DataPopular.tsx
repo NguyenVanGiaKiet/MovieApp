@@ -1,190 +1,144 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, Image, Button, Alert, TouchableOpacity,FlatList } from "react-native";
-import { useFetchMovies, Movie} from './SliderDataPopular';
+import { View, Text, Dimensions, StyleSheet, Image, Button, Alert, TouchableOpacity, FlatList, Animated } from "react-native";
+import { useFetchMovies, Movie } from './SliderDataPopular';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App';
-import { useIsFocused } from '@react-navigation/native';
-import { useFetchMoviesTopRated, MovieTopRated} from './SliderDataTopRated';
+import { useFetchMoviesTopRated, MovieTopRated } from './SliderDataTopRated';
 import LinearGradient from 'react-native-linear-gradient';
-import Animated, {
-    Extrapolate,
-    interpolate,
-    useAnimatedStyle,
-    withSpring,
-    useSharedValue,
-} from "react-native-reanimated";
-import Carousel from "react-native-reanimated-carousel";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native-gesture-handler";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'Popular'>;
 
-const PAGE_WIDTH = Dimensions.get('screen').width;
+const { width } = Dimensions.get('screen'); // Lấy chiều rộng màn hình
+const ITEM_WIDTH = width * 0.7; // Mỗi item chiếm 70% màn hình
+const ITEM_SPACING = (width - ITEM_WIDTH) / 2; // Khoảng cách giữa các item
 
-
-export type Props={
-  itemList : Movie[],
+export type Props = {
+  itemList: Movie[],
   itemListTopRated: MovieTopRated[]
 }
 
-
-function Parallax({ itemList, itemListTopRated}: Props) {
+function Parallax({ itemList, itemListTopRated }: Props) {
   const navigation = useNavigation<NavigationProp>();
   const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
-  const [isVertical, setIsVertical] = useState(false);
-  const [autoPlay, setAutoPlay] = useState(true);
-  const [pagingEnabled, setPagingEnabled] = useState(true);
-  const [snapEnabled, setSnapEnabled] = useState(true);
-  const progressValue = useSharedValue(0);
-  const isFocused = useIsFocused();
-  const currentMovieRef = useRef<Movie | null>(null);
-  const [refreshKey, setRefreshKey] = useState(0); // Sử dụng state để lưu key
-
-  const refreshScreen = () => {
-    setRefreshKey(prevKey => prevKey + 1); // Thay đổi key để reset vòng lặp
-  };
-  React.useEffect(() => {
-    if (!isFocused) {
-      setAutoPlay(false);
-    } else {
-      setAutoPlay(true);
-    }
-  }, [isFocused]);
-  
-  const [isPressed, setIsPressed] = useState(false);
-
+  const scrollX = useRef(new Animated.Value(0)).current;
 
   return (
     <SafeAreaView>
       <ScrollView>
-      <View style={styles.container}>
-        <TouchableOpacity onPress={()=> {
-          refreshScreen()
-          navigation.navigate('Popular')}}>
-        <Image source={require('../assets/images/icon.png')} style={styles.icon} />
-        </TouchableOpacity>
-      <View style={styles.buttonHeader}>
-        <TouchableOpacity onPress={()=> {
-          refreshScreen()
-          navigation.navigate('Popular')}}>
-          <Text style={styles.title}>Popular</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.iconPersonContainer}>
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-      <Image source={require('../assets/images/iconPerson.png')} style={styles.iconPerson} />
-      </TouchableOpacity>
-      </View>
-      
-      <Carousel
-        width={PAGE_WIDTH}
-        height={PAGE_WIDTH * 1}
-        vertical={false}
-        style={{ justifyContent: 'center', alignItems: 'center' }}
-        loop
-        key={refreshKey}
-        pagingEnabled={pagingEnabled}
-        snapEnabled={false} // Tắt snap để cuộn mượt hơn
-        autoPlay={autoPlay}
-        autoPlayInterval={3000} // Tăng thời gian giữa các lần tự động chuyển
-        scrollAnimationDuration={1500} // Tăng thời gian chuyển ảnh
-        onSnapToItem={(index) => {
-          currentMovieRef.current = itemList[index];
-        }}
-        onProgressChange={(_, absoluteProgress) =>
-          (progressValue.value = absoluteProgress)
-        }
-        mode="parallax"
-        modeConfig={{
-          parallaxScrollingScale: 0.7, // Giảm scale
-          parallaxScrollingOffset: 150,  // Giảm offset
-        }}
-        data={itemList}
-        onScrollBegin={() => setAutoPlay(false)}
-        onScrollEnd={() => setAutoPlay(true)}
-        renderItem={({ item }) => (
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: PAGE_WIDTH,
-              height: PAGE_WIDTH * 1, // Thay đổi chiều cao của View để phù hợp với ảnh
-            }}
-          >
-            <TouchableOpacity
-              style={[isPressed && styles.buttonPressed]}
-              activeOpacity={1}
-              onPressIn={() => setIsPressed(true)}
-              onPressOut={() => setIsPressed(false)}
-              onPress={() => {
-                setAutoPlay(false);
-                navigation.navigate('Watch', { selectedMovie: item });
-              }}
-            >
-              <Image
-                source={{ uri: `${IMAGE_BASE_URL}${item.poster_path}` }}
-                style={[styles.img, { alignSelf: 'center' }]}
-                resizeMode="cover"
-              />
-              <LinearGradient
-                colors={['transparent', 'rgba(0, 0, 0, 0.8)']}
-                style={styles.gradient}
-              />
+        <View style={styles.container}>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate('Popular')
+          }}>
+            <Image source={require('../assets/images/icon.png')} style={styles.icon} />
+          </TouchableOpacity>
+          <View style={styles.buttonHeader}>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate('Popular')
+            }}>
+              <Text style={styles.title}>Popular</Text>
             </TouchableOpacity>
           </View>
-        )}
-      />
+          <View style={styles.iconPersonContainer}>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <Image source={require('../assets/images/iconPerson.png')} style={styles.iconPerson} />
+            </TouchableOpacity>
+          </View>
 
-      <View style={styles.watch}>
-        <Button
-          title="Watch"
-          color="black"
-          onPress={() => {
-            const currentMovie = currentMovieRef.current;  // Lấy phim hiện tại từ ref
-            if (currentMovie) {
-              navigation.navigate('Watch', { selectedMovie: currentMovie });
-            } else {
-            }
-          }} 
-        />
-      </View>
-      <View style={styles.buttonFooter}>
-        <TouchableOpacity onPress={()=> {
-          refreshScreen()
-          navigation.navigate('TopRated')}}>
-          <Text style={styles.title}>Top Rated</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.topratedContainer}>
-        <FlatList
-          horizontal
-          key={refreshKey}
-          data={itemListTopRated}
-          renderItem={({ item }) => (
-            <View style={styles.itemContainer}>
-              <TouchableOpacity style={[
-                isPressed && styles.buttonPressed // Kiểm tra nếu đang giữ thì thay đổi style
-              ]}
-                activeOpacity={1} // Điều chỉnh opacity không thay đổi khi nhấn
-                onPressIn={() => setIsPressed(true)}// Khi bắt đầu nhấn
-                onPressOut={() => setIsPressed(false)} // Khi thả tay ra
-                onPress={() => navigation.navigate('Watch', { selectedMovie: item })}
-              >
-                <Image source={{ uri: `${IMAGE_BASE_URL}${item.poster_path}` }} style={styles.toprated} resizeMode='cover' />
-              </TouchableOpacity>
-            </View>
-          )}
-          keyExtractor={(item) => item.id.toString()}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
-    </View>
+          <Animated.FlatList
+            data={itemList}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingHorizontal: ITEM_SPACING  }}
+            keyExtractor={(item) => item.id.toString()}
+            snapToInterval={ITEM_WIDTH} // Để dừng chính xác tại từng item
+            decelerationRate="fast" // Tăng tốc độ dừng khi cuộn
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              { useNativeDriver: true }
+            )}
+            renderItem={({ item, index }) => {
+              const inputRange = [
+                (index - 0.5) * ITEM_WIDTH,
+                index * ITEM_WIDTH,
+                (index + 0.5) * ITEM_WIDTH,
+              ];
+
+              const scale = scrollX.interpolate({
+                inputRange,
+                outputRange: [1, 1, 1], // Giữa lớn hơn, hai bên nhỏ hơn
+                extrapolate: 'clamp',
+              });
+              const scaleY = scrollX.interpolate({
+                inputRange,
+                outputRange: [0.7, 1, 0.7], // Chiều cao item ở giữa lớn hơn
+                extrapolate: 'clamp',
+              });
+
+              
+              return (
+                <View style={{ width: ITEM_WIDTH }}>
+                  <Animated.View
+                    style={[
+                      styles.itemContainer,
+                      {
+                        transform: [{ scale }, { scaleY }],
+                      },
+                    ]}
+                  >
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate('Watch', { selectedMovie: item });
+                        }}
+                      >
+                        <Image
+                          source={{ uri: `${IMAGE_BASE_URL}${item.poster_path}` }}
+                          style={[styles.image, { alignSelf: 'center' }]}
+                          resizeMode="cover"
+                        />
+                        <LinearGradient
+                          colors={['transparent', 'rgba(0, 0, 0, 0.8)']}
+                          style={styles.gradient}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </Animated.View>
+                </View>
+              );
+            }}
+          />
+          <View style={styles.buttonFooter}>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate('TopRated')
+            }}>
+              <Text style={styles.title}>Top Rated</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.topratedContainer}>
+            <FlatList
+              horizontal
+              data={itemListTopRated}
+              renderItem={({ item }) => (
+                <View style={styles.itemContainer}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('Watch', { selectedMovie: item })}
+                  >
+                    <Image source={{ uri: `${IMAGE_BASE_URL}${item.poster_path}` }} style={styles.toprated} resizeMode='cover' />
+                  </TouchableOpacity>
+                </View>
+              )}
+              keyExtractor={(item) => item.id.toString()}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
-    
+
   );
 }
 
@@ -225,15 +179,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   buttonHeader: {
-    width: PAGE_WIDTH,
+    width: width,
     flexDirection: 'row',
     justifyContent: 'flex-start', // Đặt tiêu đề Top Rated ở giữa
     marginVertical: 10, // Thêm khoảng cách giữa các tiêu đề
     marginLeft: 30,
   },
-  img: {
-    width: PAGE_WIDTH , // Giảm kích thước hình ảnh một chút để tạo khoảng cách
-    height: 550, // Tăng chiều cao của ảnh để phù hợp với tỉ lệ màn hình
+  image: {
+    width: '100%',
+    height: ITEM_WIDTH * 1.45,
     borderRadius: 20,
   },
   watch: {
@@ -241,24 +195,25 @@ const styles = StyleSheet.create({
     marginVertical: 10, // Thêm khoảng cách giữa nút Watch và slider
   },
   buttonFooter: {
-    width: PAGE_WIDTH,
+    width: width,
     flexDirection: 'row',
     justifyContent: 'flex-start', // Đặt tiêu đề Top Rated ở giữa
     marginLeft: 30,
   },
   topratedContainer: {
-    width: PAGE_WIDTH,
+    width: width,
     height: 200,
     marginVertical: 20, // Thêm khoảng cách giữa slider và danh sách Top Rated
   },
   itemContainer: {
     marginHorizontal: 10,
+    marginBottom: 40,
   },
   toprated: {
     width: 120,
     height: 200,
     borderRadius: 10,
-    
+
   },
   gradient: {
     height: 450, // Điều chỉnh lại chiều cao gradient cho phù hợp với hình ảnh

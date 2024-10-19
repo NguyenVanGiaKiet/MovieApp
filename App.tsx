@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './components/Login'; 
-import Watch from './components/Watch';
+import Watch from './components/Information';
 import Popular from './components/Popular';
 import TopRated from './components/TopRated';
 
