@@ -13,22 +13,22 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>LOGIN</Text>
-      <TextInput 
+      <TextInput
         style={styles.input}
         placeholder="Email"
         placeholderTextColor="#AAAAAA"
         keyboardType="email-address"
       />
-      <TextInput 
+      <TextInput
         style={styles.input}
-        placeholder="Password" 
+        placeholder="Password"
         placeholderTextColor="#AAAAAA"
         secureTextEntry
       />
 
       {/* Nút đăng nhập với gradient */}
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <LinearGradient 
+        <LinearGradient
           colors={['#4c669f', '#3b5998', '#192f6a']}
           style={styles.button}
         >
@@ -36,10 +36,13 @@ const Login = () => {
         </LinearGradient>
       </TouchableOpacity>
 
-      {/* Nút quay lại */}
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-        <Text style={styles.backButtonText}>Back</Text>
-      </TouchableOpacity>
+      <View style={styles.back}>
+        <Button
+          title="Back"
+          color="black"
+          onPress={() => navigation.goBack()}
+        />
+      </View>
     </View>
   );
 };
@@ -81,10 +84,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  backButton: {
+  back: {
+    width: 100,
     position: 'absolute',
     top: 20,
-    left: 20,
+    left: 0,
     marginTop: 20,
   },
   backButtonText: {
