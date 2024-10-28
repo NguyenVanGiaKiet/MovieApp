@@ -7,7 +7,7 @@ import Popular from './components/Popular';
 import TopRated from './components/TopRated';
 import Watch from './components/Watch';
 import Search from './components/Search';
-
+import Register from './components/Register';
 
 export type RootStackParamList = {
   Popular: undefined; 
@@ -16,6 +16,7 @@ export type RootStackParamList = {
   Information: { selectedMovie: any };
   Watch: { selectedMovie: any };
   Search: undefined;
+  Register: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -30,6 +31,7 @@ const App = () => {
         <Stack.Screen name="Information" component={Information} options={{ headerShown: false }} />
         <Stack.Screen name="Watch" component={Watch} options={{ headerShown: false }} />
         <Stack.Screen name="Search" component={Search} options={{ headerShown: false }} />
+        <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

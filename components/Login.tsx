@@ -1,9 +1,10 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  View, TextInput, Button, StyleSheet, Text, TouchableOpacity
+} from 'react-native';
 import { RootStackParamList } from '../App';
 import { useNavigation } from '@react-navigation/native';
-import LinearGradient from 'react-native-linear-gradient';
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -13,6 +14,7 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>LOGIN</Text>
+
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -26,14 +28,12 @@ const Login = () => {
         secureTextEntry
       />
 
-      {/* Nút đăng nhập với gradient */}
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <LinearGradient
-          colors={['#4c669f', '#3b5998', '#192f6a']}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Login</Text>
-        </LinearGradient>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.button}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+        <Text style={styles.registerText}>Đăng ký tài khoản</Text>
       </TouchableOpacity>
 
       <View style={styles.back}>
@@ -83,6 +83,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    backgroundColor: 'black',
+  },
+  registerText: {
+    color: 'yellow',
+    fontSize: 16,
+    marginTop: 10,
   },
   back: {
     width: 100,
@@ -90,10 +96,6 @@ const styles = StyleSheet.create({
     top: 20,
     left: 0,
     marginTop: 20,
-  },
-  backButtonText: {
-    color: 'yellow',
-    fontSize: 20,
   },
 });
 

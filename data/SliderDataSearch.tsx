@@ -23,7 +23,7 @@ export const useFetchMoviesSearch = () => {
  
   const fetchMovies = async () => {
     try {
-      const response = await axios.get('http://10.0.2.2:3000/search'); // Thay localhost bằng 10.0.2.2 cho máy ảo Android
+      const response = await axios.get('http://10.0.2.2:5000/movies'); // Thay localhost bằng 10.0.2.2 cho máy ảo Android
       setMovies(response.data);
     } catch (error) {
       console.error('Lỗi khi gọi API:', error);
