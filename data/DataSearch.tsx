@@ -74,7 +74,9 @@ function Parallax({ itemListSearch }: Props) {
 
         // Lọc theo quốc gia (Nation)
         if (selectedNation && selectedNation !== 'all') {
-            filtered = filtered.filter(movie => movie.nation === selectedNation);
+            filtered = filtered.filter(movie =>
+                movie.nation.includes(selectedNation)
+            );
         }
 
         setFilteredMovies(filtered);
@@ -172,6 +174,7 @@ function Parallax({ itemListSearch }: Props) {
                             <Picker.Item label="-Quốc gia-" value="all" />
                             <Picker.Item label="Japan" value="Japan" />
                             <Picker.Item label="United States of America" value="United States of America" />
+                            <Picker.Item label="France" value="France" />
                         </Picker>
                     </View>
                 </ScrollView>

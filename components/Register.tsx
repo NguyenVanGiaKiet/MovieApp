@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {
-  View, TextInput, Button, StyleSheet, Text, Alert, TouchableOpacity
+  View, TextInput, Alert, TouchableOpacity, StyleSheet, Text,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App';
@@ -14,21 +13,63 @@ const Register = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // Hàm lưu tài khoản vào AsyncStorage
-  const saveAccount = async () => {
+  // Hàm lấy danh sách người dùng từ API
+  const fetchUsers = async () => {
     try {
-      const account = { email, password };
-
-      // Lưu thông tin tài khoản vào AsyncStorage
-      await AsyncStorage.setItem(email, JSON.stringify(account));
-      Alert.alert('Thành công', 'Tài khoản đã được đăng ký!');
-
-      // Điều hướng về màn hình Login sau khi đăng ký
-      navigation.goBack();
+      const response = await fetch('http://10.0.2.2:5000/users');
+      const data = await response.json();
+      return data; // Trả về danh sách người dùng
     } catch (error) {
-      Alert.alert('Lỗi', 'Đã có lỗi xảy ra khi lưu tài khoản.');
+      console.error('Lỗi khi lấy danh sách người dùng:', error);
+      return [];
+    }
+  };
+
+  // Hàm kiểm tra xem email đã được đăng ký hay chưa
+  const checkEmailExists = async (email: string) => {
+    const users = await fetchUsers();
+    return users.some((user: { email: string; }) => user.email === email); // Kiểm tra xem email có trong danh sách không
+  };
+
+  // Hàm đăng ký tài khoản bằng API
+  const registerAccount = async () => {
+    if (!email || !password) {
+      Alert.alert('Lỗi', 'Vui lòng nhập đủ email và mật khẩu.');
+      return;
+    }
+
+    // Kiểm tra xem email đã tồn tại chưa
+    const emailExists = await checkEmailExists(email);
+    if (emailExists) {
+      Alert.alert('Lỗi', 'Email này đã được đăng ký.');
+      return;
+    }
+
+    try {
+      setLoading(true); // Hiển thị trạng thái loading
+      const response = await fetch('http://10.0.2.2:5000/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Alert.alert('Thành công', 'Tài khoản đã được đăng ký!');
+        navigation.goBack(); // Quay lại màn hình login
+      } else {
+        Alert.alert('Lỗi', data.message || 'Đăng ký không thành công.');
+      }
+    } catch (error) {
       console.error(error);
+      Alert.alert('Lỗi', 'Đã xảy ra lỗi trong quá trình đăng ký.');
+    } finally {
+      setLoading(false); // Tắt trạng thái loading
     }
   };
 
@@ -53,8 +94,12 @@ const Register = () => {
         onChangeText={setPassword}
       />
 
-      <TouchableOpacity onPress={saveAccount} style={styles.button}>
-        <Text style={styles.buttonText}>Đăng ký</Text>
+      <TouchableOpacity
+        onPress={registerAccount}
+        style={[styles.button, loading && { backgroundColor: 'black' }]}
+        disabled={loading}
+      >
+        <Text style={styles.buttonText}>{loading ? 'Đang đăng ký...' : 'Đăng ký'}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -95,7 +140,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 10,
-    backgroundColor: '#3b5998',
+    backgroundColor: 'black',
   },
   buttonText: {
     color: '#fff',

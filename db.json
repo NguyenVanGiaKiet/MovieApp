@@ -275,7 +275,13 @@
         "year": 1988,
         "nation": "Japan",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/rNMTxDJGnyqXZ9n3b3HXdoKFRid.jpg",
-        "videoUrl": "https://embed6.streamc.xyz/embed.php?hash=a4174326d188dd9103ebbe4290a611b9"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed6.streamc.xyz/embed.php?hash=a4174326d188dd9103ebbe4290a611b9"
+          }
+        ]
+        
       },
       {
         "id": 2,
@@ -288,7 +294,12 @@
         "year": 1988,
         "nation": "Japan",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/203.jpg",
-        "videoUrl": "https://embed1.streamc.xyz/embed.php?hash=efd27b8439087a01b901a1ff3d4e3bb1"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed1.streamc.xyz/embed.php?hash=efd27b8439087a01b901a1ff3d4e3bb1"
+          }
+        ]
       },
       {
         "id": 3,
@@ -301,7 +312,12 @@
         "year": 2001,
         "nation": "Japan",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/1360.jpg",
-        "videoUrl": "https://embed1.streamc.xyz/embed.php?hash=35d44728b07dd4851c79458617393681"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed1.streamc.xyz/embed.php?hash=35d44728b07dd4851c79458617393681"
+          }
+        ]
       },
       {
         "id": 4,
@@ -314,7 +330,12 @@
         "year": 2003,
         "nation": "Japan",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/lau-dai-bay-cua-phap-su-howl-thumb.jpg",
-        "videoUrl": "https://embed.streamc.xyz/embed.php?hash=fd472882fa219df85d80da819300a9b9"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed.streamc.xyz/embed.php?hash=fd472882fa219df85d80da819300a9b9"
+          }
+        ]
       },
       {
         "id": 5,
@@ -327,7 +348,12 @@
         "year": 2007,
         "nation": "Japan",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/525.jpg",
-        "videoUrl": "https://embed1.streamc.xyz/embed.php?hash=179edd4d97465eac498c03c171aaac81"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed1.streamc.xyz/embed.php?hash=179edd4d97465eac498c03c171aaac81"
+          }
+        ]
       },
       {
         "id": 6,
@@ -340,7 +366,12 @@
         "year": 2008,
         "nation": "Japan",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/1744.jpg",
-        "videoUrl": "https://embed1.streamc.xyz/embed.php?hash=9600558a6d0cabafca91c412d398a464"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed1.streamc.xyz/embed.php?hash=9600558a6d0cabafca91c412d398a464"
+          }
+        ]
       },
       {
         "id": 7,
@@ -353,7 +384,12 @@
         "year": 2011,
         "nation": "Japan",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/2202.jpg",
-        "videoUrl": "https://embed1.streamc.xyz/embed.php?hash=ac538dfbff1f422645a82032f9f74685"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed1.streamc.xyz/embed.php?hash=ac538dfbff1f422645a82032f9f74685"
+          }
+        ]
       },
       {
         "id": 8,
@@ -366,7 +402,12 @@
         "year": 2024,
         "nation": "Japan",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/wovo2VvBVDI39S0y6sGenuJ03vd.jpg",
-        "videoUrl": "https://embed5.streamc.xyz/embed.php?hash=766eafd4621b4fc87608da7309a984fd"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed5.streamc.xyz/embed.php?hash=766eafd4621b4fc87608da7309a984fd"
+          }
+        ]
       },
       {
         "id": 9,
@@ -379,7 +420,45 @@
         "year": 2021,
         "nation": "Japan",
         "poster_path" : "https://phim.nguonc.com/public/images/Post/10/arcane-lien-minh-huyen-thoai-phan-1.jpg",
-        "videoUrl": "https://embed3.streamc.xyz/embed.php?hash=873cf0cde9dcde18e0abb37ff82f2c65"
+        "videoUrl": [
+          {
+            "tap" : "Tập 1",
+            "url": "https://embed3.streamc.xyz/embed.php?hash=873cf0cde9dcde18e0abb37ff82f2c65"
+          },
+          {
+            "tap" : "Tập 2",
+            "url": "https://embed3.streamc.xyz/embed.php?hash=3ceeb050c15279cbc6d1ffa54e7f894e"
+          },
+          {
+            "tap" : "Tập 3",
+            "url": "https://embed3.streamc.xyz/embed.php?hash=b7b9e82302c7ffa2f484715e8da69623"
+          },
+          {
+            "tap" : "Tập 4",
+            "url": "https://embed3.streamc.xyz/embed.php?hash=052449f98fc75a55dae75dac9ce48ffd"
+          },
+          {
+            "tap" : "Tập 5",
+            "url": "https://embed3.streamc.xyz/embed.php?hash=625c30fcd3da7800a8a444394e6ca04f"
+          },
+          {
+            "tap" : "Tập 6",
+            "url": "https://embed3.streamc.xyz/embed.php?hash=8c8c17759b9f67cc08fdc9c833c2cd21"
+          },
+          {
+            "tap" : "Tập 7",
+            "url": "https://embed3.streamc.xyz/embed.php?hash=2bf2fabe37202faf03a76026104d9554"
+          },
+          {
+            "tap" : "Tập 8",
+            "url": "https://embed3.streamc.xyz/embed.php?hash=9904e56d1a0937709e1395fad1d2e4a6"
+          },
+          {
+            "tap" : "Tập 9",
+            "url": "https://embed3.streamc.xyz/embed.php?hash=dd952895e7113e46ac65ba2fb4077d22"
+          }
+        ]
+        
       },
       {
         "id": 10,
@@ -392,7 +471,12 @@
         "year": 2022,
         "nation": "Japan",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/125323.jpg",
-        "videoUrl": "https://embed1.streamc.xyz/embed.php?hash=8a7dc71f6ad631c2685d467bf2927f97"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed1.streamc.xyz/embed.php?hash=8a7dc71f6ad631c2685d467bf2927f97"
+          }
+        ]
       },
       {
         "id": 11,
@@ -405,7 +489,12 @@
           "year": 2024,
           "nation": "United States of America",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/lfY2CfmxyN9OvxmFuap6aejViJn.jpg",
-        "videoUrl": "https://embed11.streamc.xyz/embed.php?hash=75f24d420066c06360fa342aa35521be"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed11.streamc.xyz/embed.php?hash=75f24d420066c06360fa342aa35521be"
+          }
+        ]
       },
       {
         "id": 12,
@@ -418,7 +507,40 @@
           "year": 2024,
           "nation": "United States of America",
         "poster_path" : "https://phim.nguonc.com/public/images/Post/3/sieu-anh-hung-pha-hoai-phan-4-1.jpg",
-        "videoUrl": "https://embed2.streamc.xyz/embed.php?hash=da96896c16f67ed082938f786bc15cd1"
+        "videoUrl": [
+          {
+            "tap": "Tập 1",
+            "url":"https://embed2.streamc.xyz/embed.php?hash=da96896c16f67ed082938f786bc15cd1"
+          },
+          {
+            "tap": "Tập 2",
+            "url":"https://embed2.streamc.xyz/embed.php?hash=097e31245d21f80c49e7c044889027f5"
+          },
+          {
+            "tap": "Tập 3",
+            "url":"https://embed2.streamc.xyz/embed.php?hash=a76c65be0447a93015a1cc36ed29eb48"
+          },
+          {
+            "tap": "Tập 4",
+            "url":"https://embed3.streamc.xyz/embed.php?hash=e900150414b25768740af367e27c23d9"
+          },
+          {
+            "tap": "Tập 5",
+            "url":"https://embed3.streamc.xyz/embed.php?hash=e6d57eb0b916e513996b95a9f83d33e2"
+          },
+          {
+            "tap": "Tập 6",
+            "url":"https://embed3.streamc.xyz/embed.php?hash=516a28be1ec7b7ce708711b1a4bd6970"
+          },
+          {
+            "tap": "Tập 7",
+            "url":"https://embed3.streamc.xyz/embed.php?hash=bbbccc3af0fed3388d3ba15e0890eefb"
+          },
+          {
+            "tap": "Tập 8",
+            "url":"https://embed3.streamc.xyz/embed.php?hash=2deb2a3858918f3f31ca1a66f30b6133"
+          }
+        ]
       },
       {
         "id": 13,
@@ -431,7 +553,12 @@
           "year": 2024,
           "nation": "United States of America",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/ntuE9YvFmFcaRKj80QUPAawiT7X.jpg",
-        "videoUrl": "https://embed3.streamc.xyz/embed.php?hash=619c579a32e6ac095370c1b1b2259224"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed3.streamc.xyz/embed.php?hash=619c579a32e6ac095370c1b1b2259224"
+          }
+        ]
       },
       {
         "id": 14,
@@ -444,7 +571,32 @@
           "year": 2023,
           "nation": "United States of America",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/MV5BYTY0YTgwZjUtYzJiNy00ZDQ2LWFlZmItZThhMjExMjI5YWQ2XkEyXkFqcGdeQXVyMTM1NjM2ODg1._V1_.jpg",
-        "videoUrl": "|https://embed.streamc.xyz/embed.php?hash=01fa3f7adb1848568f584edf29e44758"
+        "videoUrl": [
+          {
+            "tap": "Tập 1",
+            "url":"https://embed.streamc.xyz/embed.php?hash=01fa3f7adb1848568f584edf29e44758"
+          },
+          {
+            "tap": "Tập 2",
+            "url":"https://embed.streamc.xyz/embed.php?hash=1ab158bf0b297842a248f881edda4907"
+          },
+          {
+            "tap": "Tập 3",
+            "url":"https://embed.streamc.xyz/embed.php?hash=a1300b22613cd0b045b0c44e65d53b48"
+          },
+          {
+            "tap": "Tập 4",
+            "url":"https://embed.streamc.xyz/embed.php?hash=791a4e512d5c50f0d3f9d666d9cd6041"
+          },
+          {
+            "tap": "Tập 5",
+            "url":"https://embed.streamc.xyz/embed.php?hash=7eeff26d5bbd97df157b7aee1b6425e2"
+          },
+          {
+            "tap": "Tập 6",
+            "url":"https://embed.streamc.xyz/embed.php?hash=a5977dfb87f2410e4bc6f009d5b21c13"
+          }
+        ]
       },
       {
         "id": 15,
@@ -457,7 +609,12 @@
           "year": 2023,
           "nation": "United States of America",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/oppenheimer-thumb.jpg",
-        "videoUrl": "https://embed.streamc.xyz/embed.php?hash=b8c23ed2855b19c1f220de4ade193aef"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed.streamc.xyz/embed.php?hash=b8c23ed2855b19c1f220de4ade193aef"
+          }
+        ]
       },
       {
         "id": 16,
@@ -470,7 +627,12 @@
           "year": 2022,
           "nation": "United States of America",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/hanh-tinh-cat-phan-hai-thumb.jpg",
-        "videoUrl": "https://embed.streamc.xyz/embed.php?hash=fb1bf36c0930e5811d9004abb8daac3f"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed.streamc.xyz/embed.php?hash=fb1bf36c0930e5811d9004abb8daac3f"
+          }
+        ]
       },
       {
         "id": 17,
@@ -483,7 +645,12 @@
           "year": 2002,
           "nation": "United States of America",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/nguoi-nhen-thumb.jpg",
-        "videoUrl": "https://embed.streamc.xyz/embed.php?hash=f1bfd87d0f1dd12830eea9ed46f4b801"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed.streamc.xyz/embed.php?hash=f1bfd87d0f1dd12830eea9ed46f4b801"
+          }
+        ]
       },
       {
         "id": 18,
@@ -496,7 +663,12 @@
           "year": 2019,
           "nation": "United States of America, Canada",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/7DIrtrRgZWWO8jXklLXkkivqpBG.jpg",
-        "videoUrl": "https://embed10.streamc.xyz/embed.php?hash=24b7c47ce626d0fc32f977b389439a5c"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed10.streamc.xyz/embed.php?hash=24b7c47ce626d0fc32f977b389439a5c"
+          }
+        ]
       },
       {
         "id": 19,
@@ -509,7 +681,12 @@
           "year": 2024,
           "nation": "United States of America",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/fTKWAzKGgeEoAb5gv0LWjQmhDao.jpg",
-        "videoUrl": "https://embed13.streamc.xyz/embed.php?hash=2797f8860ed0f3608d4d7da3725bf4bc"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed13.streamc.xyz/embed.php?hash=2797f8860ed0f3608d4d7da3725bf4bc"
+          }
+        ]
       },
       {
         "id": 20,
@@ -522,7 +699,12 @@
           "year": 2023,
           "nation": "United States of America",
         "poster_path" : "https://phim.nguonc.com/public/images/Film/sjLLA6PGxoN0kmCuwxgb8CR0F29.jpg",
-        "videoUrl": "https://embed.streamc.xyz/embed.php?hash=64084b43365a3ad2a4041932405bf3f1"
+        "videoUrl": [
+          {
+            "tap": "Full Movie",
+            "url":"https://embed.streamc.xyz/embed.php?hash=64084b43365a3ad2a4041932405bf3f1"
+          }
+        ]
       }
     ]
 }

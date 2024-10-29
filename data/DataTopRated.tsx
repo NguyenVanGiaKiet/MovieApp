@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, Dimensions, StyleSheet, Image, Button, Alert, TouchableOpacity, FlatList, ImageBackground, ActivityIndicator, StatusBar } from "react-native";
 import { Movie } from './SliderDataPopular';
@@ -19,7 +19,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native-gesture-handler";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'TopRated'>;
-
+type TopratedRouteProp = RouteProp<RootStackParamList, 'TopRated'>;
 const PAGE_WIDTH = Dimensions.get('screen').width;
 
 
@@ -30,6 +30,8 @@ export type Props = {
 
 
 function Parallax({ itemList, itemListTopRated }: Props) {
+  const route = useRoute<TopratedRouteProp>();
+  const { userImage } = route.params || {};
   const navigation = useNavigation<NavigationProp>();
   const [autoPlay, setAutoPlay] = useState(true);
   const [pagingEnabled, setPagingEnabled] = useState(true);
@@ -88,14 +90,14 @@ function Parallax({ itemList, itemListTopRated }: Props) {
             />
             <TouchableOpacity onPress={() => {
               refreshScreen()
-              navigation.navigate('Popular')
+              navigation.navigate('Popular', { userImage })
             }}>
               <Image source={require('../assets/images/icon.png')} style={styles.icon} />
             </TouchableOpacity>
             <View style={styles.buttonHeader}>
               <TouchableOpacity onPress={() => {
                 refreshScreen()
-                navigation.navigate('TopRated')
+                navigation.navigate('TopRated', { userImage })
               }}>
                 <Text style={styles.title}>Top Rated</Text>
               </TouchableOpacity>
@@ -105,8 +107,11 @@ function Parallax({ itemList, itemListTopRated }: Props) {
                 setAutoPlay(false);
                 navigation.navigate('Login')
               }}>
-                <Image source={require('../assets/images/iconPerson.png')} style={styles.iconPerson} />
-              </TouchableOpacity>
+            <Image
+              source={userImage ? { uri: userImage } : require('../assets/images/iconPerson.png')}
+              style={styles.iconPerson}
+            />
+          </TouchableOpacity>
             </View>
 
             <Carousel
@@ -191,7 +196,7 @@ function Parallax({ itemList, itemListTopRated }: Props) {
           <View style={styles.buttonFooter}>
             <TouchableOpacity onPress={() => {
               refreshScreen()
-              navigation.navigate('Popular')
+              navigation.navigate('Popular', { userImage })
             }}>
               <Text style={styles.title}>Popular</Text>
             </TouchableOpacity>
@@ -285,6 +290,7 @@ const styles = StyleSheet.create({
   iconPerson: {
     height: 70,
     width: 70,
+    borderRadius: 62.5,
   },
   
   title: {

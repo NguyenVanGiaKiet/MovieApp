@@ -10,13 +10,14 @@ import Search from './components/Search';
 import Register from './components/Register';
 
 export type RootStackParamList = {
-  Popular: undefined; 
-  TopRated: undefined;
+  Popular: {userImage?: string}; 
+  TopRated: {userImage?: string};
   Login: undefined;
   Information: { selectedMovie: any };
   Watch: { selectedMovie: any };
   Search: undefined;
   Register: undefined;
+  Person: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();

@@ -13,7 +13,7 @@ export interface Movie {
   year: number;
   nation: string;
   poster_path: string;
-  videoUrl: string;
+  videoUrl: { tap: string; url: string }[];
 }
 
 // Custom hook để gọi API TMDB và trả về dữ liệu
