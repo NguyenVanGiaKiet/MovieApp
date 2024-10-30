@@ -65,7 +65,7 @@ function Parallax({ itemList, itemListTopRated }: Props) {
             source={
               currentMovie?.poster_path
                 ? { uri: currentMovie.poster_path }
-                : { uri: 'https://phim.nguonc.com/public/images/Film/rNMTxDJGnyqXZ9n3b3HXdoKFRid.jpg' } // Ảnh mặc định nếu không có poster
+                : { uri: 'https://phim.nguonc.com/public/images/Film/lfY2CfmxyN9OvxmFuap6aejViJn.jpg' } // Ảnh mặc định nếu không có poster
             }
             style={styles.container}
             resizeMode="cover"
