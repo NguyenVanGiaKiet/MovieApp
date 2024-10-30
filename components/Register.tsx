@@ -5,6 +5,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../App';
+import { API_BASE_URL } from './API';
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;
 
@@ -18,7 +19,7 @@ const Register = () => {
   // Hàm lấy danh sách người dùng từ API
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://10.0.2.2:5000/users');
+      const response = await fetch(`${API_BASE_URL}/users`);
       const data = await response.json();
       return data; // Trả về danh sách người dùng
     } catch (error) {

@@ -7,7 +7,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../App';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
+import { API_BASE_URL } from '../components/API';
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -34,7 +34,7 @@ const Login = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://10.0.2.2:5000/users');
+      const response = await fetch(`${API_BASE_URL}/users`);
       return await response.json();
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu:', error);
@@ -68,7 +68,7 @@ const Login = () => {
     if (!loggedInUser) return;
 
     try {
-      const response = await fetch(`http://10.0.2.2:5000/users/${loggedInUser.email}`, {
+      const response = await fetch(`${API_BASE_URL}/users/${loggedInUser.email}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 10,
+
   },
 });
 
