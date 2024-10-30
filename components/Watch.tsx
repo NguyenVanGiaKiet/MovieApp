@@ -55,7 +55,7 @@ const Watch = () => {
                     >
                         <Text style={[
                             styles.episodeText,
-                            currentUrl === item.url && styles.boldText // Tô đậm nếu URL trùng khớp
+                            currentUrl === item.url && styles.boldText 
                         ]}>
                             {item.tap}
                         </Text>

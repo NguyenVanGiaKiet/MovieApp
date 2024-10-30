@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Parallax from '../data/DataSearch';
+import SearchScreen from '../data/DataSearch';
 import React from 'react';
 import { useFetchMoviesSearch } from '../data/SliderDataSearch';
 
@@ -10,7 +10,7 @@ export default function Search() {
   return (
     <View style={styles.container}>
       {/* <AppCarousel /> */}
-      <Parallax itemListSearch={moviesSearch} />
+      <SearchScreen itemListSearch={moviesSearch} />
       <StatusBar style="auto" />
     </View>
   );

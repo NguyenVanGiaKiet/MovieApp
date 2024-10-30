@@ -38,12 +38,12 @@ function Parallax({ itemList, itemListTopRated }: Props) {
   const progressValue = useSharedValue(0);
   const isFocused = useIsFocused();
   const currentMovieRef = useRef<Movie | null>(null);
-  const [refreshKey, setRefreshKey] = useState(0); // Sử dụng state để lưu key
+  const [refreshKey, setRefreshKey] = useState(0); 
   const [currentMovie, setCurrentMovie] = useState<Movie | null>(itemListTopRated[0]);
   const [loading, setLoading] = useState(true);
 
   const refreshScreen = () => {
-    setRefreshKey(prevKey => prevKey + 1); // Thay đổi key để reset vòng lặp
+    setRefreshKey(prevKey => prevKey + 1); 
   };
   React.useEffect(() => {
     if (!isFocused) {
@@ -65,12 +65,12 @@ function Parallax({ itemList, itemListTopRated }: Props) {
             source={
               currentMovie?.poster_path
                 ? { uri: currentMovie.poster_path }
-                : { uri: 'https://phim.nguonc.com/public/images/Film/lfY2CfmxyN9OvxmFuap6aejViJn.jpg' } // Ảnh mặc định nếu không có poster
+                : { uri: 'https://phim.nguonc.com/public/images/Film/lfY2CfmxyN9OvxmFuap6aejViJn.jpg' } 
             }
             style={styles.container}
             resizeMode="cover"
-            onLoadStart={() => setLoading(true)} // Bắt đầu tải ảnh
-            onLoadEnd={() => setLoading(false)}  // Ảnh tải xong
+            onLoadStart={() => setLoading(true)} 
+            onLoadEnd={() => setLoading(false)}  
           >
             {loading && (
               <View style={styles.loadingContainer}>
@@ -122,10 +122,10 @@ function Parallax({ itemList, itemListTopRated }: Props) {
               loop
               key={refreshKey}
               pagingEnabled={pagingEnabled}
-              snapEnabled={false} // Tắt snap để cuộn mượt hơn
+              snapEnabled={false} 
               autoPlay={autoPlay}
-              autoPlayInterval={3000} // Tăng thời gian giữa các lần tự động chuyển
-              scrollAnimationDuration={1500} // Tăng thời gian chuyển ảnh
+              autoPlayInterval={3000} 
+              scrollAnimationDuration={1500} 
               onSnapToItem={(index) => {
                 currentMovieRef.current = itemListTopRated[index];
                 setCurrentMovie(itemListTopRated[index])
@@ -136,8 +136,8 @@ function Parallax({ itemList, itemListTopRated }: Props) {
               }
               mode="parallax"
               modeConfig={{
-                parallaxScrollingScale: 0.7, // Giảm scale
-                parallaxScrollingOffset: 150,  // Giảm offset
+                parallaxScrollingScale: 0.7,
+                parallaxScrollingOffset: 150,  
               }}
               data={itemListTopRated}
               onScrollBegin={() => setAutoPlay(false)}
@@ -149,7 +149,7 @@ function Parallax({ itemList, itemListTopRated }: Props) {
                     justifyContent: 'center',
                     alignItems: 'center',
                     width: PAGE_WIDTH,
-                    height: PAGE_WIDTH * 1, // Thay đổi chiều cao của View để phù hợp với ảnh
+                    height: PAGE_WIDTH * 1,
                   }}
                 >
                   <TouchableOpacity
@@ -183,7 +183,7 @@ function Parallax({ itemList, itemListTopRated }: Props) {
                 color="black"
                 onPress={() => {
                   setAutoPlay(false);
-                  const currentMovie = currentMovieRef.current;  // Lấy phim hiện tại từ ref
+                  const currentMovie = currentMovieRef.current;  
                   if (currentMovie) {
                     navigation.navigate('Watch', { selectedMovie: currentMovie });
                   } else {
@@ -219,11 +219,11 @@ function Parallax({ itemList, itemListTopRated }: Props) {
               renderItem={({ item }) => (
                 <View style={styles.itemContainer}>
                   <TouchableOpacity style={[
-                    isPressed && styles.buttonPressed // Kiểm tra nếu đang giữ thì thay đổi style
+                    isPressed && styles.buttonPressed 
                   ]}
-                    activeOpacity={1} // Điều chỉnh opacity không thay đổi khi nhấn
-                    onPressIn={() => setIsPressed(true)}// Khi bắt đầu nhấn
-                    onPressOut={() => setIsPressed(false)} // Khi thả tay ra
+                    activeOpacity={1} 
+                    onPressIn={() => setIsPressed(true)}
+                    onPressOut={() => setIsPressed(false)} 
                     onPress={() => navigation.navigate('Information', { selectedMovie: item })}
                   >
                     <Image source={{ uri: item.poster_path }} style={styles.toprated} resizeMode='cover' />
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     position: 'absolute',
     top: 50,
-    right: 20, // Đặt icon ở góc trên cùng bên phải
+    right: 20, 
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -296,27 +296,27 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 15,
-    marginVertical: 10, // Thêm khoảng cách giữa tiêu đề và các phần tử khác
+    marginVertical: 10, 
   },
   buttonPressed: {
     backgroundColor: 'transparent',
   },
   buttonHeader: {
     width: 100,
-    marginVertical: 10, // Thêm khoảng cách giữa các tiêu đề
+    marginVertical: 10,
     marginRight: 310,
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
   },
   img: {
-    width: PAGE_WIDTH, // Giảm kích thước hình ảnh một chút để tạo khoảng cách
-    height: 550, // Tăng chiều cao của ảnh để phù hợp với tỉ lệ màn hình
+    width: PAGE_WIDTH, 
+    height: 550, 
     borderRadius: 20,
   },
   watch: {
     width: 100,
-    marginVertical: 10, // Thêm khoảng cách giữa nút Watch và slider
+    marginVertical: 10,
   },
   containerFooter:{
     width: PAGE_WIDTH,
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
   topratedContainer: {
     width: PAGE_WIDTH,
     height: 200,
-    marginVertical: 20, // Thêm khoảng cách giữa slider và danh sách Top Rated
+    marginVertical: 20, 
   },
   itemContainer: {
     marginHorizontal: 10,
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
 
   },
   gradient: {
-    height: 450, // Điều chỉnh lại chiều cao gradient cho phù hợp với hình ảnh
+    height: 450, 
     position: 'absolute',
     bottom: 0,
     left: 0,

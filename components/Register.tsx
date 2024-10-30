@@ -16,32 +16,31 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Hàm lấy danh sách người dùng từ API
   const fetchUsers = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/users`);
       const data = await response.json();
-      return data; // Trả về danh sách người dùng
+      return data; 
     } catch (error) {
       console.error('Lỗi khi lấy danh sách người dùng:', error);
       return [];
     }
   };
 
-  // Hàm kiểm tra xem email đã được đăng ký hay chưa
+
   const checkEmailExists = async (email: string) => {
     const users = await fetchUsers();
-    return users.some((user: { email: string; }) => user.email === email); // Kiểm tra xem email có trong danh sách không
+    return users.some((user: { email: string; }) => user.email === email); 
   };
 
-  // Hàm đăng ký tài khoản bằng API
+  
   const registerAccount = async () => {
     if (!email || !password) {
       Alert.alert('Lỗi', 'Vui lòng nhập đủ email và mật khẩu.');
       return;
     }
 
-    // Kiểm tra xem email đã tồn tại chưa
+    
     const emailExists = await checkEmailExists(email);
     if (emailExists) {
       Alert.alert('Lỗi', 'Email này đã được đăng ký.');
@@ -49,8 +48,8 @@ const Register = () => {
     }
 
     try {
-      setLoading(true); // Hiển thị trạng thái loading
-      const response = await fetch('http://10.0.2.2:5000/users', {
+      setLoading(true); 
+      const response = await fetch(`${API_BASE_URL}/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +61,7 @@ const Register = () => {
 
       if (response.ok) {
         Alert.alert('Thành công', 'Tài khoản đã được đăng ký!');
-        navigation.goBack(); // Quay lại màn hình login
+        navigation.goBack(); 
       } else {
         Alert.alert('Lỗi', data.message || 'Đăng ký không thành công.');
       }
@@ -70,7 +69,7 @@ const Register = () => {
       console.error(error);
       Alert.alert('Lỗi', 'Đã xảy ra lỗi trong quá trình đăng ký.');
     } finally {
-      setLoading(false); // Tắt trạng thái loading
+      setLoading(false); 
     }
   };
 

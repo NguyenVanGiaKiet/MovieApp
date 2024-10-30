@@ -19,51 +19,51 @@ export type Props = {
     itemListSearch: Movie[],
 };
 
-function Parallax({ itemListSearch }: Props) {
+function SearchScreen({ itemListSearch }: Props) {
     const navigation = useNavigation<NavigationProp>();
-    // State cho giá trị tìm kiếm và danh sách phim đã lọc
+    
     const [searchText, setSearchText] = useState('');
     const [filteredMovies, setFilteredMovies] = useState<Movie[]>(itemListSearch);
 
-    // State để lưu giá trị đã chọn từ các Picker
+    
     const [selectedList, setSelectedList] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedYear, setSelectedYear] = useState('');
     const [selectedNation, setSelectedNation] = useState('');
 
-    // Khi màn hình được mở, khởi tạo danh sách phim đã lọc bằng tất cả các phim
+    
     useEffect(() => {
         setFilteredMovies(itemListSearch);
     }, [itemListSearch]);
 
-    // Hàm lọc phim khi người dùng nhập
+    
     const handleSearch = (text: string) => {
         setSearchText(text);
 
-        // Lọc phim dựa trên tên (không phân biệt chữ hoa/thường)
+        
         const filtered = itemListSearch.filter((movie) =>
             movie.name_movie.toLowerCase().includes(text.toLowerCase())
         );
 
         setFilteredMovies(filtered);
     };
-    // Hàm lọc dữ liệu dựa trên các Picker
+    
     const filterMovies = () => {
         let filtered = itemListSearch;
 
-        // Lọc theo danh sách (Phim lẻ / Phim bộ)
+        
         if (selectedList && selectedList !== 'all') {
             filtered = filtered.filter(movie => movie.list === selectedList);
         }
 
-        // Lọc theo thể loại (Category)
+        
         if (selectedCategory && selectedCategory !== 'all') {
             filtered = filtered.filter(movie =>
                 movie.category.includes(selectedCategory)
             );
         }
 
-        // Lọc theo năm (Year)
+        
         if (selectedYear && selectedYear !== 'all') {
             if (selectedYear === 'before2012') {
                 filtered = filtered.filter(movie => movie.year <= 2012);
@@ -72,7 +72,7 @@ function Parallax({ itemListSearch }: Props) {
             }
         }
 
-        // Lọc theo quốc gia (Nation)
+        
         if (selectedNation && selectedNation !== 'all') {
             filtered = filtered.filter(movie =>
                 movie.nation.includes(selectedNation)
@@ -82,7 +82,7 @@ function Parallax({ itemListSearch }: Props) {
         setFilteredMovies(filtered);
     };
 
-    // Gọi hàm filterMovies mỗi khi giá trị của Picker thay đổi
+    
     useEffect(() => {
         filterMovies();
     }, [selectedList, selectedCategory, selectedYear, selectedNation]);
@@ -206,7 +206,7 @@ function Parallax({ itemListSearch }: Props) {
     );
 }
 
-export default Parallax;
+export default SearchScreen;
 
 const styles = StyleSheet.create({
     container: {
