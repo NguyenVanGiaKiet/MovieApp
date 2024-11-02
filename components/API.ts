@@ -1,1 +1,1 @@
-export const API_BASE_URL = 'https://backend-movieapp-ej5s.onrender.com'; 
+export const API_BASE_URL = 'https://backend-movieapp-cscu.onrender.com'; 
