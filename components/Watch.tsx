@@ -6,7 +6,8 @@ import {
     Dimensions, 
     FlatList, 
     ActivityIndicator, 
-    Button
+    Button,
+    StatusBar
 } from 'react-native';
 import React, { useState } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -33,6 +34,7 @@ const Watch = () => {
 
     return (
         <View style={styles.container}>
+            <StatusBar hidden={false} />
             <View style={styles.viewWebView}>
                 <WebView
                     source={{ uri: currentUrl }}

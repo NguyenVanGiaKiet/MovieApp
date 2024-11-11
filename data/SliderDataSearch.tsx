@@ -3,7 +3,6 @@ import axios from 'axios';
 import { API_BASE_URL } from '../components/API';
 
 export interface Movie {
-  id: number;
   name_movie: string;
   time: string;
   director: string;

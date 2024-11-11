@@ -15,7 +15,7 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native-gesture-handler";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'TopRated'>;
@@ -38,12 +38,12 @@ function Parallax({ itemList, itemListTopRated }: Props) {
   const progressValue = useSharedValue(0);
   const isFocused = useIsFocused();
   const currentMovieRef = useRef<Movie | null>(null);
-  const [refreshKey, setRefreshKey] = useState(0); 
+  const [refreshKey, setRefreshKey] = useState(0);
   const [currentMovie, setCurrentMovie] = useState<Movie | null>(itemListTopRated[0]);
   const [loading, setLoading] = useState(true);
 
   const refreshScreen = () => {
-    setRefreshKey(prevKey => prevKey + 1); 
+    setRefreshKey(prevKey => prevKey + 1);
   };
   React.useEffect(() => {
     if (!isFocused) {
@@ -57,186 +57,185 @@ function Parallax({ itemList, itemListTopRated }: Props) {
 
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View >
-          <StatusBar hidden={true} />
-          <ImageBackground
-            source={
-              currentMovie?.poster_path
-                ? { uri: currentMovie.poster_path }
-                : { uri: 'https://phim.nguonc.com/public/images/Film/lfY2CfmxyN9OvxmFuap6aejViJn.jpg' } 
-            }
-            style={styles.container}
-            resizeMode="cover"
-            onLoadStart={() => setLoading(true)} 
-            onLoadEnd={() => setLoading(false)}  
-          >
-            {loading && (
-              <View style={styles.loadingContainer}>
-                <ActivityIndicator size="large" color="#ffffff" />
-              </View>
-            )}
-            <LinearGradient
-              colors={['transparent', '#1c1c1c']}
-              style={styles.linearBot}
+      <SafeAreaView>
+        <ScrollView>
+          <View >
+            <StatusBar hidden={false} />
+            <ImageBackground
+              source={
+                currentMovie?.poster_path
+                  ? { uri: currentMovie.poster_path }
+                  : { uri: 'https://phim.nguonc.com/public/images/Film/lfY2CfmxyN9OvxmFuap6aejViJn.jpg' }
+              }
+              style={styles.container}
+              resizeMode="cover"
+              onLoadStart={() => setLoading(true)}
+              onLoadEnd={() => setLoading(false)}
+            >
+              {loading && (
+                <View style={styles.loadingContainer}>
+                  <ActivityIndicator size="large" color="#ffffff" />
+                </View>
+              )}
+              <LinearGradient
+                colors={['transparent', '#1c1c1c']}
+                style={styles.linearBot}
 
-            />
-            <LinearGradient
-              colors={['transparent', '#1c1c1c']}
-              start={{ x: 0.5, y: 1 }}
-              end={{ x: 0.5, y: 0 }}
-              style={styles.linearTop}
-            />
-            <TouchableOpacity onPress={() => {
-              refreshScreen()
-              navigation.navigate('Popular', { userImage })
-            }}>
-              <Image source={require('../assets/images/icon.png')} style={styles.icon} />
-            </TouchableOpacity>
-            <View style={styles.buttonHeader}>
+              />
+              <LinearGradient
+                colors={['transparent', '#1c1c1c']}
+                start={{ x: 0.5, y: 1 }}
+                end={{ x: 0.5, y: 0 }}
+                style={styles.linearTop}
+              />
               <TouchableOpacity onPress={() => {
                 refreshScreen()
-                navigation.navigate('TopRated', { userImage })
+                navigation.navigate('Popular', { userImage })
               }}>
-                <Text style={styles.title}>Top Rated</Text>
+                <Image source={require('../assets/images/icon.png')} style={styles.icon} />
               </TouchableOpacity>
-            </View>
-            <View style={styles.iconPersonContainer}>
-              <TouchableOpacity onPress={() => {
-                setAutoPlay(false);
-                navigation.navigate('Login')
-              }}>
-            <Image
-              source={userImage ? { uri: userImage } : require('../assets/images/iconPerson.png')}
-              style={styles.iconPerson}
-            />
-          </TouchableOpacity>
-            </View>
+              <View style={styles.buttonHeader}>
+                <TouchableOpacity onPress={() => {
+                  refreshScreen()
+                  navigation.navigate('TopRated', { userImage })
+                }}>
+                  <Text style={styles.title}>Top Rated</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.iconPersonContainer}>
+                <TouchableOpacity onPress={() => {
+                  setAutoPlay(false);
+                  navigation.navigate('Login')
+                }}>
+                  <Image
+                    source={userImage ? { uri: userImage } : require('../assets/images/iconPerson.png')}
+                    style={styles.iconPerson}
+                  />
+                </TouchableOpacity>
+              </View>
 
-            <Carousel
-              width={PAGE_WIDTH}
-              height={PAGE_WIDTH * 1}
-              vertical={false}
-              style={{ justifyContent: 'center', alignItems: 'center' }}
-              loop
-              key={refreshKey}
-              pagingEnabled={pagingEnabled}
-              snapEnabled={false} 
-              autoPlay={autoPlay}
-              autoPlayInterval={3000} 
-              scrollAnimationDuration={1500} 
-              onSnapToItem={(index) => {
-                currentMovieRef.current = itemListTopRated[index];
-                setCurrentMovie(itemListTopRated[index])
-              }
-              }
-              onProgressChange={(_, absoluteProgress) =>
-                (progressValue.value = absoluteProgress)
-              }
-              mode="parallax"
-              modeConfig={{
-                parallaxScrollingScale: 0.7,
-                parallaxScrollingOffset: 150,  
-              }}
-              data={itemListTopRated}
-              onScrollBegin={() => setAutoPlay(false)}
-              onScrollEnd={() => setAutoPlay(true)}
-              renderItem={({ item }) => (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: PAGE_WIDTH,
-                    height: PAGE_WIDTH * 1,
-                  }}
-                >
-                  <TouchableOpacity
-                    style={[isPressed && styles.buttonPressed]}
-                    activeOpacity={1}
-                    onPressIn={() => setIsPressed(true)}
-                    onPressOut={() => setIsPressed(false)}
-                    onPress={() => {
-                      setAutoPlay(false);
-                      navigation.navigate('Information', { selectedMovie: item });
+              <Carousel
+                width={PAGE_WIDTH}
+                height={PAGE_WIDTH * 1}
+                vertical={false}
+                style={{ justifyContent: 'center', alignItems: 'center' }}
+                loop
+                key={refreshKey}
+                pagingEnabled={pagingEnabled}
+                snapEnabled={false}
+                autoPlay={autoPlay}
+                autoPlayInterval={3000}
+                scrollAnimationDuration={1500}
+                onSnapToItem={(index) => {
+                  currentMovieRef.current = itemListTopRated[index];
+                  setCurrentMovie(itemListTopRated[index])
+                }
+                }
+                onProgressChange={(_, absoluteProgress) =>
+                  (progressValue.value = absoluteProgress)
+                }
+                mode="parallax"
+                modeConfig={{
+                  parallaxScrollingScale: 0.7,
+                  parallaxScrollingOffset: 150,
+                }}
+                data={itemListTopRated}
+                onScrollBegin={() => setAutoPlay(false)}
+                onScrollEnd={() => setAutoPlay(true)}
+                renderItem={({ item }) => (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: PAGE_WIDTH,
+                      height: PAGE_WIDTH * 1,
                     }}
                   >
-                    <Image
-                      source={{ uri: item.poster_path }}
-                      style={[styles.img, { alignSelf: 'center' }]}
-                      resizeMode="cover"
-                    />
-                    <LinearGradient
-                      colors={['transparent', 'rgba(0, 0, 0, 0.8)']}
-                      style={styles.gradient}
-                    />
-                  </TouchableOpacity>
-                </View>
-              )}
-            />
+                    <TouchableOpacity
+                      style={[isPressed && styles.buttonPressed]}
+                      activeOpacity={1}
+                      onPressIn={() => setIsPressed(true)}
+                      onPressOut={() => setIsPressed(false)}
+                      onPress={() => {
+                        setAutoPlay(false);
+                        navigation.navigate('Information', { selectedMovie: item });
+                      }}
+                    >
+                      <Image
+                        source={{ uri: item.poster_path }}
+                        style={[styles.img, { alignSelf: 'center' }]}
+                        resizeMode="cover"
+                      />
+                      <LinearGradient
+                        colors={['transparent', 'rgba(0, 0, 0, 0.8)']}
+                        style={styles.gradient}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              />
 
 
-            <View style={styles.watch}>
-              <Button
-                title="Watch"
-                color="black"
-                onPress={() => {
+              <View style={styles.watch}>
+                <Button
+                  title="Watch"
+                  color="black"
+                  onPress={() => {
+                    setAutoPlay(false);
+                    const currentMovie = currentMovieRef.current;
+                    if (currentMovie) {
+                      navigation.navigate('Watch', { selectedMovie: currentMovie });
+                    } else {
+                    }
+                  }}
+                />
+              </View>
+            </ImageBackground>
+            <View style={styles.containerFooter}>
+              <View style={styles.buttonFooter}>
+                <TouchableOpacity onPress={() => {
+                  refreshScreen()
+                  navigation.navigate('Popular', { userImage })
+                }}>
+                  <Text style={styles.title}>Popular</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.iconSearchContainer}>
+                <TouchableOpacity onPress={() => {
                   setAutoPlay(false);
-                  const currentMovie = currentMovieRef.current;  
-                  if (currentMovie) {
-                    navigation.navigate('Watch', { selectedMovie: currentMovie });
-                  } else {
-                  }
-                }}
+                  navigation.navigate('Search')
+                }}>
+                  <Image source={require('../assets/images/iconSearch.png')} style={styles.iconSearch} />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.topratedContainer}>
+              <FlatList
+                horizontal
+                key={refreshKey}
+                data={itemList}
+                renderItem={({ item }) => (
+                  <View style={styles.itemContainer}>
+                    <TouchableOpacity style={[
+                      isPressed && styles.buttonPressed
+                    ]}
+                      activeOpacity={1}
+                      onPressIn={() => setIsPressed(true)}
+                      onPressOut={() => setIsPressed(false)}
+                      onPress={() => navigation.navigate('Information', { selectedMovie: item })}
+                    >
+                      <Image source={{ uri: item.poster_path }} style={styles.toprated} resizeMode='cover' />
+                    </TouchableOpacity>
+                  </View>
+                )}
+                showsHorizontalScrollIndicator={false}
               />
             </View>
-          </ImageBackground>
-          <View style={styles.containerFooter}>
-          <View style={styles.buttonFooter}>
-            <TouchableOpacity onPress={() => {
-              refreshScreen()
-              navigation.navigate('Popular', { userImage })
-            }}>
-              <Text style={styles.title}>Popular</Text>
-            </TouchableOpacity>
           </View>
-          <View style={styles.iconSearchContainer}>
-              <TouchableOpacity onPress={() => {
-                setAutoPlay(false);
-                navigation.navigate('Search')
-              }}>
-                <Image source={require('../assets/images/iconSearch.png')} style={styles.iconSearch} />
-              </TouchableOpacity>
-            </View>
-          </View>
-          
-          <View style={styles.topratedContainer}>
-            <FlatList
-              horizontal
-              key={refreshKey}
-              data={itemList}
-              renderItem={({ item }) => (
-                <View style={styles.itemContainer}>
-                  <TouchableOpacity style={[
-                    isPressed && styles.buttonPressed 
-                  ]}
-                    activeOpacity={1} 
-                    onPressIn={() => setIsPressed(true)}
-                    onPressOut={() => setIsPressed(false)} 
-                    onPress={() => navigation.navigate('Information', { selectedMovie: item })}
-                  >
-                    <Image source={{ uri: item.poster_path }} style={styles.toprated} resizeMode='cover' />
-                  </TouchableOpacity>
-                </View>
-              )}
-              keyExtractor={(item) => item.id.toString()}
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
   );
 }
 
@@ -283,7 +282,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     position: 'absolute',
     top: 50,
-    right: 20, 
+    right: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -292,11 +291,11 @@ const styles = StyleSheet.create({
     width: 70,
     borderRadius: 62.5,
   },
-  
+
   title: {
     color: 'white',
     fontSize: 15,
-    marginVertical: 10, 
+    marginVertical: 10,
   },
   buttonPressed: {
     backgroundColor: 'transparent',
@@ -310,15 +309,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   img: {
-    width: PAGE_WIDTH, 
-    height: 550, 
+    width: PAGE_WIDTH,
+    height: 550,
     borderRadius: 20,
   },
   watch: {
     width: 100,
     marginVertical: 10,
   },
-  containerFooter:{
+  containerFooter: {
     width: PAGE_WIDTH,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -329,7 +328,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  iconSearchContainer:{
+  iconSearchContainer: {
     height: 40,
     width: 70,
     backgroundColor: 'black',
@@ -343,7 +342,7 @@ const styles = StyleSheet.create({
   topratedContainer: {
     width: PAGE_WIDTH,
     height: 200,
-    marginVertical: 20, 
+    marginVertical: 20,
   },
   itemContainer: {
     marginHorizontal: 10,
@@ -355,7 +354,7 @@ const styles = StyleSheet.create({
 
   },
   gradient: {
-    height: 450, 
+    height: 450,
     position: 'absolute',
     bottom: 0,
     left: 0,

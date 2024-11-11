@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
   View, TextInput, StyleSheet, Text, TouchableOpacity, Alert,
   Button, Image,
+  StatusBar,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../App';
@@ -98,79 +99,80 @@ const Login = () => {
   const toggleVisibility = () => setIsHidden(!isHidden);
 
   return (
-    <View style={styles.container}>
-      {!loggedInUser ? (
-        <>
-          <Text style={styles.title}>LOGIN</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#AAAAAA"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            placeholderTextColor="#AAAAAA"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-          />
-          <TouchableOpacity onPress={handleLogin} style={styles.button}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.registerText}>Đăng ký tài khoản</Text>
-          </TouchableOpacity>
-          <View style={styles.back}>
-            <Button
-              title="Back"
-              color="black"
-              onPress={() => navigation.goBack()}
-            />
-          </View>
-        </>
-      ) : (
-        <View style={styles.loggedInContainer}>
-          <View style={styles.iconPersonContainer}>
-          <TouchableOpacity onPress={toggleVisibility}>
-            <Image
-              source={userImage ? { uri: userImage } : require('../assets/images/iconPerson.png')}
-              style={styles.iconPerson}
-              onError={() => Alert.alert('Lỗi', 'Không thể tải ảnh')}
-            />
-          </TouchableOpacity>
-          </View>
-          <Text style={styles.loggedInText}>Email: {loggedInUser.email}</Text>
-          <View style={styles.back}>
-            <Button
-              title="Back"
-              color="black"
-              onPress={() => navigation.navigate('Popular', { userImage })}
-            />
-          </View>
-          {!isHidden && (
+        <View style={styles.container}>
+          <StatusBar hidden={false} />
+          {!loggedInUser ? (
             <>
+              <Text style={styles.title}>LOGIN</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Nhập đường link ảnh"
+                placeholder="Email"
                 placeholderTextColor="#AAAAAA"
-                value={imageUrl}
-                onChangeText={setImageUrl}
+                keyboardType="email-address"
+                value={email}
+                onChangeText={setEmail}
               />
-              <TouchableOpacity onPress={updateUserImage} style={styles.button}>
-                <Text style={styles.buttonText}>Cập nhật ảnh</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="#AAAAAA"
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+              />
+              <TouchableOpacity onPress={handleLogin} style={styles.button}>
+                <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                <Text style={styles.registerText}>Đăng ký tài khoản</Text>
+              </TouchableOpacity>
+              <View style={styles.back}>
+                <Button
+                  title="Back"
+                  color="black"
+                  onPress={() => navigation.goBack()}
+                />
+              </View>
             </>
+          ) : (
+            <View style={styles.loggedInContainer}>
+              <View style={styles.iconPersonContainer}>
+                <TouchableOpacity onPress={toggleVisibility}>
+                  <Image
+                    source={userImage ? { uri: userImage } : require('../assets/images/iconPerson.png')}
+                    style={styles.iconPerson}
+                    onError={() => Alert.alert('Lỗi', 'Không thể tải ảnh')}
+                  />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.loggedInText}>Email: {loggedInUser.email}</Text>
+              <View style={styles.back}>
+                <Button
+                  title="Back"
+                  color="black"
+                  onPress={() => navigation.navigate('Popular', { userImage })}
+                />
+              </View>
+              {!isHidden && (
+                <>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Nhập đường link ảnh"
+                    placeholderTextColor="#AAAAAA"
+                    value={imageUrl}
+                    onChangeText={setImageUrl}
+                  />
+                  <TouchableOpacity onPress={updateUserImage} style={styles.button}>
+                    <Text style={styles.buttonText}>Cập nhật ảnh</Text>
+                  </TouchableOpacity>
+                </>
+              )}
+              <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+                <Text style={styles.logoutButtonText}>Logout</Text>
+              </TouchableOpacity>
+            </View>
           )}
-          <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-            <Text style={styles.logoutButtonText}>Logout</Text>
-          </TouchableOpacity>
         </View>
-      )}
-    </View>
   );
 };
 
@@ -218,7 +220,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
   },
-  loggedInText:{
+  loggedInText: {
     color: 'white',
     paddingVertical: 10,
     fontSize: 20

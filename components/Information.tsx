@@ -20,66 +20,59 @@ const Information = () => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.itemcontainer}>
-          <StatusBar hidden={true} />
-          <View style={styles.poster}>
-            <Image source={{ uri: selectedMovie.poster_path }} style={styles.img} resizeMode='cover' />
-            <LinearGradient
-              colors={['transparent', '#1c1c1c']}
-              style={styles.linearBottom}
-            />
-            <LinearGradient
-              colors={['transparent', '#1c1c1c']}
-              start={{ x: 0.5, y: 1 }}
-              end={{ x: 0.5, y: 0 }}
-              style={styles.linearTop}
-            />
-          </View>
-          <Text style={styles.name_movie}>{selectedMovie.name_movie}</Text>
-          <View style={styles.content}>
-            <View style={styles.leftItem}>
-              <View style={styles.watch}>
-                <Button
-                  title="Watch"
-                  color="black"
-                  onPress={() => {
-                    if (selectedMovie) {
-                      navigation.navigate('Watch', { selectedMovie: selectedMovie });
-                    } else {
-                    }
-                  }}
-                />
-              </View>
-              <View style={styles.btnBack}>
-                <Button
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
+          <View style={styles.itemcontainer}>
+            <StatusBar hidden={false} />
+            <View style={styles.poster}>
+              <Image source={{ uri: selectedMovie.poster_path }} style={styles.img} resizeMode='cover' />
+              <LinearGradient
+                colors={['transparent', '#1c1c1c']}
+                style={styles.linearBottom}
+              />
+              <LinearGradient
+                colors={['transparent', '#1c1c1c']}
+                start={{ x: 0.5, y: 1 }}
+                end={{ x: 0.5, y: 0 }}
+                style={styles.linearTop}
+              />
+            </View>
+            <Text style={styles.name_movie}>{selectedMovie.name_movie}</Text>
+            <View style={styles.content}>
+              <View style={styles.leftItem}>
+                <View style={styles.watch}>
+                  <Button
+                    title="Watch"
+                    color="black"
+                    onPress={() => {
+                      if (selectedMovie) {
+                        navigation.navigate('Watch', { selectedMovie: selectedMovie });
+                      } else {
+                      }
+                    }}
+                  />
+                </View>
+                <View style={styles.btnBack}>
+                  <Button
                     title="Back"
                     color="black"
                     onPress={() => navigation.goBack()}
-                />
-            </View>
-
-            </View>
-
-            <View style={styles.rightItem}>
-              <Text style={styles.title}>Thời Lượng: {selectedMovie.time}</Text>
-              <Text style={styles.title}>Đạo Diễn: {selectedMovie.director}</Text>
-              <Text style={styles.title}>Diễn Viên: {selectedMovie.actor}</Text>
-              <Text style={styles.title}>Danh sách: {selectedMovie.list}</Text>
-              <Text style={styles.title}>Thể loại: {selectedMovie.category}</Text>
-              <Text style={styles.title}>Năm phát hành: {selectedMovie.year}</Text>
-              <Text style={styles.title}>Quốc gia: {selectedMovie.nation}</Text>
+                  />
+                </View>
+              </View>
+              <View style={styles.rightItem}>
+                <Text style={styles.title}>Thời Lượng: {selectedMovie.time}</Text>
+                <Text style={styles.title}>Đạo Diễn: {selectedMovie.director}</Text>
+                <Text style={styles.title}>Diễn Viên: {selectedMovie.actor}</Text>
+                <Text style={styles.title}>Danh sách: {selectedMovie.list}</Text>
+                <Text style={styles.title}>Thể loại: {selectedMovie.category}</Text>
+                <Text style={styles.title}>Năm phát hành: {selectedMovie.year}</Text>
+                <Text style={styles.title}>Quốc gia: {selectedMovie.nation}</Text>
+              </View>
             </View>
           </View>
-
-          
-        </View>
-
-      </ScrollView>
-    </SafeAreaView>
-
-
+        </ScrollView>
+      </SafeAreaView>
   );
 }
 
@@ -123,7 +116,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 15
   },
-  iconBack:{
+  iconBack: {
     height: 40,
     width: 40,
   },
@@ -134,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 30,
-    
+
   },
   watch: {
     width: 100,

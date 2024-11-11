@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   View, TextInput, Alert, TouchableOpacity, StyleSheet, Text,
+  StatusBar,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -20,7 +21,7 @@ const Register = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/users`);
       const data = await response.json();
-      return data; 
+      return data;
     } catch (error) {
       console.error('Lỗi khi lấy danh sách người dùng:', error);
       return [];
@@ -30,17 +31,17 @@ const Register = () => {
 
   const checkEmailExists = async (email: string) => {
     const users = await fetchUsers();
-    return users.some((user: { email: string; }) => user.email === email); 
+    return users.some((user: { email: string; }) => user.email === email);
   };
 
-  
+
   const registerAccount = async () => {
     if (!email || !password) {
       Alert.alert('Lỗi', 'Vui lòng nhập đủ email và mật khẩu.');
       return;
     }
 
-    
+
     const emailExists = await checkEmailExists(email);
     if (emailExists) {
       Alert.alert('Lỗi', 'Email này đã được đăng ký.');
@@ -48,7 +49,7 @@ const Register = () => {
     }
 
     try {
-      setLoading(true); 
+      setLoading(true);
       const response = await fetch(`${API_BASE_URL}/users`, {
         method: 'POST',
         headers: {
@@ -61,7 +62,7 @@ const Register = () => {
 
       if (response.ok) {
         Alert.alert('Thành công', 'Tài khoản đã được đăng ký!');
-        navigation.goBack(); 
+        navigation.goBack();
       } else {
         Alert.alert('Lỗi', data.message || 'Đăng ký không thành công.');
       }
@@ -69,43 +70,44 @@ const Register = () => {
       console.error(error);
       Alert.alert('Lỗi', 'Đã xảy ra lỗi trong quá trình đăng ký.');
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>ĐĂNG KÝ</Text>
+        <View style={styles.container}>
+          <StatusBar hidden={false} />
+          <Text style={styles.title}>ĐĂNG KÝ</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor="#AAAAAA"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            placeholderTextColor="#AAAAAA"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+          />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="#AAAAAA"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        placeholderTextColor="#AAAAAA"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
+          <TouchableOpacity
+            onPress={registerAccount}
+            style={[styles.button, loading && { backgroundColor: 'black' }]}
+            disabled={loading}
+          >
+            <Text style={styles.buttonText}>{loading ? 'Đang đăng ký...' : 'Đăng ký'}</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={registerAccount}
-        style={[styles.button, loading && { backgroundColor: 'black' }]}
-        disabled={loading}
-      >
-        <Text style={styles.buttonText}>{loading ? 'Đang đăng ký...' : 'Đăng ký'}</Text>
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text style={styles.backButtonText}>Quay lại</Text>
+          </TouchableOpacity>
+        </View>
 
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text style={styles.backButtonText}>Quay lại</Text>
-      </TouchableOpacity>
-    </View>
   );
 };
 

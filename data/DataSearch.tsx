@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import {
     View, Text, Dimensions, StyleSheet, Image, TouchableOpacity,
     FlatList, TextInput,
-    Button
+    Button,
+    StatusBar
 } from "react-native";
 import { Movie } from './SliderDataSearch';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -92,6 +93,7 @@ function SearchScreen({ itemListSearch }: Props) {
     return (
         <View style={styles.container}>
             <View style={styles.search}>
+                <StatusBar hidden={false} />
                 <View style={styles.back}>
                     <Button
                         title="Back"
@@ -198,7 +200,6 @@ function SearchScreen({ itemListSearch }: Props) {
                         </TouchableOpacity>
                     </View>
                 )}
-                keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={styles.flatListContent}
                 showsVerticalScrollIndicator={false}
             />

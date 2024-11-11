@@ -4,7 +4,6 @@ import { API_BASE_URL } from '../components/API';
 
 
 export interface Movie {
-  id: number;
   name_movie: string;
   time: string;
   director: string;
@@ -24,7 +23,7 @@ export const useFetchMoviesTopRated = () => {
 
   const fetchMovies = async () => {
     try {
-      const response = await axios.get( `${API_BASE_URL}/movies/toprated`); 
+      const response = await axios.get( `${API_BASE_URL}/toprated`); 
       setMovies(response.data);
     } catch (error) {
       console.error('Lỗi khi gọi API:', error);
